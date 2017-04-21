@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 byte Tandart[] = { 0x42, 0x66, 0x3C, 0x81, 0xC3, 0xBD, 0x66, 0x42 };
 byte cthulhu[] = { 0x42, 0x81, 0xBD, 0x42, 0x66, 0x81, 0x66, 0xA5 };
 byte Beto[] = { 0x42, 0x99, 0xBD, 0x81, 0x66, 0x3C, 0x66, 0xC3 };
@@ -6,6 +7,21 @@ byte Candado[] = { 0x18, 0x24, 0x24, 0x24, 0xff, 0xff, 0xff, 0xff };
 char inByte = "";
 void setup()                           // Prog_37_1 hiasd
    {   
+=======
+byte P[] = { 0x78, 0x44, 0x44, 0x78, 0x40, 0x40, 0x40, 0x40 };
+byte R[] = { 0x78, 0x44, 0x44, 0x78, 0x70, 0x58, 0x4C, 0x46 };
+byte O[] = { 0x3C, 0x42, 0x42, 0x42, 0x42, 0x42, 0x42, 0x3C };
+byte M[] = { 0x66, 0x7E, 0x5A, 0x42, 0x42, 0x42, 0x42, 0x42 };
+byte E[] = { 0x7C, 0x40, 0x40, 0x78, 0x78, 0x40, 0x40, 0x7C };
+byte T[] = { 0x7E, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18 };
+byte C[] = { 0x7c, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x7C };
+byte N[] = { 0x42, 0x62, 0x72, 0x5A, 0x4E, 0x46, 0x42, 0x42 };
+byte dot[]={ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x06 };
+byte sp[]= { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+String inByte;
+void setup()
+   { 
+>>>>>>> origin/master
         for (int j=2; j<19; j++)
         pinMode(j, OUTPUT);
         Serial.begin(9600);
@@ -17,6 +33,7 @@ bool GetBit( byte N, int pos)
        b = b & 1 ;                // coger solo el ultimo bit
        return b ;
    }
+   
    void Clear()
    {
       for (int j=2; j<10; j++)  // Valores de los pines de columna
@@ -24,16 +41,31 @@ bool GetBit( byte N, int pos)
       for (int k= 10 ; k<18 ; k++)
            digitalWrite(k, LOW);    // Todas las filas cortadas
    }
+   
+String GetLine()
+   {   String S = "" ;
+       if (Serial.available())
+          {    char c = Serial.read(); ;
+                while ( c != '\n')            //Hasta que el caracter sea intro
+                  {     S = S + c ;
+                        delay(25) ;
+                        c = Serial.read();
+                  }
+                return( S + '\n') ;
+          }
+   }
+   
 void loop()            // Prog_37_1
    {
       if (Serial.available() > 0) 
       {
-        inByte = Serial.read();
+        inByte = GetLine();
+        delay (10);
       }
-      else
-      {
-        Serial.write(inByte);
-      }      
+      //else
+      //{
+       // Serial.write(inByte);
+      //}      
       Clear();
       for (int fil = 0; fil <8 ; fil++)
          {
